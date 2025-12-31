@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feliz Año Nuevo ❤️</title>
+    <link rel="stylesheet" href="styles.css" />
+
+</head>
+
+<body>
+    <div class="hearts" aria-hidden="true"></div>
+
+    <!-- PANTALLA 1 -->
+    <section class="screen active" id="screenHero">
+        <section class="hero">
+            <div class="glass">
+                <div class="badge">✨ Feliz Año Nuevo ✨</div>
+                <h1>Querida Betssy Nayeli E.M ❤️</h1>
+
+                <p class="subtitle">
+                    Hoy solo quiero decirte algo bonito… y que lo sientas de verdad. 💗
+                </p>
+
+                <div class="actions">
+                    <button class="btn primary" id="goMensaje" type="button">Abrir mensaje 💌</button>
+                    <button class="btn" id="btnHearts">Para Ti..... 🎥✨</button>
+                </div>
+
+                <p class="hint">-></p>
+            </div>
+        </section>
+
+        <footer class="screen-footer">
+            Hecho con amor por Nelson 💖 — 2025<span id="fecha"></span>
+        </footer>
+
+        <!-- <div class="wrap">
+      <div class="card">
+        <p class="muted" style="margin:0;">
+          Tip: cuando abras el mensaje, toca el sobre para leer la carta ✉️💖
+        </p>
+      </div>
+    </div> -->
+    </section>
+
+    <!-- PANTALLA 2 -->
+    <section class="screen" id="screenMensaje">
+        <div class="wrap fullscreen">
+            <section class="card">
+                <div class="topbar">
+                    <button class="btn" id="backHero" type="button">← Volver</button>
+                    <span class="muted">Para ti, con amor 💖</span>
+                </div>
+
+                <h2 style="margin-top:6px;">Un mensaje para ti 💌</h2>
+                <!-- <p class="muted" style="margin-top:0;">
+          Toca el sobre para abrir la carta (como en la vida real 😄).
+        </p> -->
+
+                <div class="envelopeWrap">
+                    <div class="envelope" id="env">
+                        <div class="flap"></div>
+                        <!-- <div class="seal">🌹</div> -->
+
+                        <div class="envFront">
+                            <div>
+                                <h3>Para Ti Amor ❤️</h3>
+                                <p>Ábreme despacito…</p>
+                                <div class="envControls" style="margin-top:12px;">
+                                    <button class="btn primary" id="openEnv" type="button">Abrir sobre 💌</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="letter" id="letter" aria-live="polite">
+                            <p><strong>Feliz Año Nuevo, amore. ❤️</strong></p>
+
+                            <p>
+                                Quiero que empieces este nuevo año sabiendo algo muy claro:
+                                <strong>te amo</strong>… y no de una forma pasajera, sino de esa que se queda,
+                                que cuida y que elige todos los días.
+                            </p>
+
+                            <p>
+                                Gracias por tu forma de ser, por tu paciencia, por tu cariño,
+                                y por hacer que incluso los días normales se sientan especiales.
+                                Contigo aprendí que el amor no es perfecto… pero sí <strong>real</strong>. 🌹
+                            </p>
+
+                            <p>
+                                Este nuevo año deseo que esté lleno de prosperidad, de metas cumplidas, de éxitos en tus
+                                estudios y en tu trabajo, y de muchas oportunidades que te acerquen a todo lo que
+                                sueñas. Quiero verte crecer, brillar y sentir orgullo de cada paso que des.
+                            </p>
+                            <p>
+                                Este año quiero seguir construyendo contigo: más momentos, más risas,
+                                más abrazos largos, y más “aquí estoy” cuando lo necesites.
+                                Si llegan días difíciles, yo quiero ser tu calma. 🤍
+                            </p>
+
+                            <p>Te amo, Nayeli. Que este año nos regale paz, amor y muchas razones para sonreír juntos.💘
+                            </p>
+
+                            <p class="sign">Feliz Año Nuevo.</p>
+                            <p class="sign"> Con todo mi corazón, Nelson 💘</p>
+
+                            <div class="envControls">
+                                <!-- <button class="btn" id="closeEnv" type="button">Cerrar sobre ✉️</button> -->
+                                <button class="btn primary" id="moreLove" type="button">Cerrar Sobre ✉️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="muted" style="margin:12px 0 0;">
+                    (Si quieres, vuelve y abre el sobre otra vez. Me gusta que lo leas con calma 😌)
+                </p>
+            </section>
+        </div>
+    </section>
+
+    <!-- Modal Video (se abre con el botón Lluvia de amor) -->
+    <!-- <div class="video-modal" id="videoModal">
+        <div class="video-box">
+            <button class="video-close" id="closeVideo" type="button">✕</button>
+
+            Overlay romántico
+            <div class="video-overlay">
+                <h2 class="love-text">Te amo ❤️</h2>
+                <div class="heart-photo">
+                    <img src="img/2.jpeg" alt="Nosotros">
+                </div>
+            </div>
+            <video id="loveVideo" controls playsinline>
+                <source src="video/video.mp4" type="video/mp4">
+                Tu navegador no soporta video.
+            </video>
+        </div>
+    </div> -->
+
+    <!-- Modal Video (se abre con el botón Lluvia de amor) -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-card" role="dialog" aria-modal="true" aria-label="Video romántico">
+            <button class="video-close" id="closeVideo" type="button" aria-label="Cerrar">✕</button>
+
+            <div class="video-decor" aria-hidden="true">
+                <span class="rose r1">🌹</span>
+                <span class="rose r2">🌹</span>
+                <span class="rose r3">🌹</span>
+                <span class="rose r4">🌹</span>
+
+                <span class="spark s1">✨</span>
+                <span class="spark s2">✨</span>
+
+                <span class="tiny-heart h1">💖</span>
+                <span class="tiny-heart h2">💗</span>
+                <span class="tiny-heart h3">💘</span>
+            </div>
+
+            <div class="video-head">
+                <div class="video-badge">Para ti, mi amor 💗</div>
+                <h3 class="love-text">Te amo, Nayeli ❤️</h3>
+                <p class="video-sub">Dale play y míralo con calma…</p>
+            </div>
+
+            <div class="video-frame">
+                <video id="loveVideo" controls playsinline>
+                    <source src="video/video.mp4" type="video/mp4">
+                    Tu navegador no soporta video.
+                </video>
+            </div>
+
+            <div class="video-footer">
+                <div class="heart-photo">
+                    <img src="img/2.jpeg" alt="Nosotros">
+                </div>
+                <p class="video-note">Hecho con amor — Nelson 💘</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Música romántica de fondo -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music/music.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+
+
+    <footer>
+        ♡ ♡ ♡ ♡ ♡
+        <div class="imgHdr">
+            <img src="img/5.png" alt="imagen">
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

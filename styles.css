@@ -1,0 +1,667 @@
+:root {
+    --bg1: #0b0b14;
+    --bg2: #160b19;
+    --card: rgba(255, 255, 255, .10);
+    --stroke: rgba(255, 255, 255, .16);
+    --text: rgba(255, 255, 255, .92);
+    --muted: rgba(255, 255, 255, .72);
+    --accent: #ff4d8d;
+    --accent2: #7c4dff;
+    --paper: #f3e4cf;
+    --paper2: #e6d0b3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(1100px 650px at 18% 12%, rgba(255, 77, 141, .26), transparent 60%),
+        radial-gradient(1000px 700px at 82% 30%, rgba(124, 77, 255, .22), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+    overflow: hidden;
+    /* Importante: como son pantallas, no usamos scroll global */
+}
+
+/* Fondo de corazones */
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    opacity: 0;
+    animation: floatUp linear forwards;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .35));
+    will-change: transform, opacity;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(30px) scale(.95);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: .9;
+    }
+
+    100% {
+        transform: translateY(-120vh) scale(1.25);
+        opacity: 0;
+    }
+}
+
+/* Pantallas */
+.screen {
+    position: fixed;
+    inset: 0;
+    overflow: auto;
+    display: none;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .28s ease, transform .28s ease;
+    padding: 24px 0 40px;
+    background: radial-gradient(800px 500px at 50% 30%, rgba(255,77,141,.20), rgba(0,0,0,.72));
+
+}
+
+.screen.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+.screen-footer{
+  position: absolute;
+  bottom: 14px;
+  width: 100%;
+  text-align: center;
+  color: rgba(255,255,255,.55);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+
+
+/* Contenedores */
+.wrap {
+    width: min(980px, 92vw);
+    margin: 0 auto;
+    display: grid;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero */
+.hero {
+    min-height: 92vh;
+    display: grid;
+    place-items: center;
+    padding: 18px 0;
+}
+
+.glass {
+    width: min(920px, 92vw);
+    padding: 26px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .07));
+    border: 1px solid var(--stroke);
+    box-shadow: 0 18px 65px rgba(0, 0, 0, .35);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background:
+        radial-gradient(520px 240px at 10% 18%, rgba(255, 77, 141, .22), transparent 60%),
+        radial-gradient(520px 240px at 90% 60%, rgba(124, 77, 255, .18), transparent 60%);
+    pointer-events: none;
+    opacity: .85;
+}
+
+.badge {
+    position: relative;
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 77, 141, .16);
+    border: 1px solid rgba(255, 77, 141, .26);
+    margin: 0 0 10px;
+    color: rgba(255, 255, 255, .90);
+}
+
+h1 {
+    position: relative;
+    margin: 10px 0 10px;
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    line-height: 1.08;
+}
+
+.subtitle {
+    position: relative;
+    margin: 0 auto 18px;
+    max-width: 62ch;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.actions {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.btn {
+    border: 1px solid var(--stroke);
+    background: rgba(255, 255, 255, .07);
+    color: var(--text);
+    padding: 11px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 750;
+    text-decoration: none;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, .11);
+}
+
+.btn.primary {
+    border-color: rgba(255, 77, 141, .48);
+    background: linear-gradient(135deg, rgba(255, 77, 141, .38), rgba(124, 77, 255, .22));
+}
+
+.hint {
+    position: relative;
+    margin: 18px 0 0;
+    color: rgba(255, 255, 255, .55);
+}
+
+/* Cards */
+.card {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 22px;
+    padding: 18px;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, .25);
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+/* Mensaje full-screen centrado */
+.fullscreen {
+    min-height: calc(100vh - 80px);
+    display: grid;
+    place-items: center;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Sobre */
+.envelopeWrap {
+    margin-top: 12px;
+    width: min(720px, 100%);
+}
+
+.envelope {
+    position: relative;
+    height: 260px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--paper);
+    border: 1px solid rgba(0, 0, 0, .08);
+    box-shadow: 0 20px 55px rgba(0, 0, 0, .28);
+    perspective: 1200px;
+    color: #2b2b2b;
+}
+
+/* Tapa triangular real */
+.flap {
+    position: absolute;
+    inset: 0;
+    background: var(--paper2);
+    clip-path: polygon(0 0, 50% 56%, 100% 0);
+    transform-origin: top;
+    transition: transform .62s ease;
+    z-index: 6;
+}
+
+/* Sello */
+.seal {
+    position: absolute;
+    top: 102px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 77, 141, .18);
+    border: 1px solid rgba(255, 77, 141, .28);
+    font-size: 26px;
+    z-index: 7;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .15);
+}
+
+/* Frente del sobre */
+.envFront {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 28px;
+    z-index: 8;
+}
+
+.envFront h3 {
+    margin: 0;
+}
+
+.envFront p {
+    margin: 6px 0 0;
+    color: #3d3d3d;
+}
+
+/* La carta (sale desde abajo) */
+.letter {
+    position: absolute;
+    inset: 0;
+    padding: 18px 18px 16px;
+    background: #fff;
+    transform: translateY(100%);
+    transition: transform .62s ease;
+    z-index: 4;
+    overflow: auto;
+}
+
+.letter p {
+    margin: 10px 0;
+    line-height: 1.8;
+    color: #2e2e2e;
+}
+
+.sign {
+    margin-top: 12px;
+    font-weight: 850;
+    color: #1f1f1f;
+}
+
+.envControls {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Estado abierto */
+.envelope.opened .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.opened .letter {
+    transform: translateY(0);
+}
+
+.envelope.opened .envFront {
+    display: none;
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 12px 10px 26px;
+    color: rgba(255, 255, 255, .55);
+}
+footer .imgHdr{
+    margin-top: 4px;
+}
+.imgHdr img{
+    width: 45px;
+    border-radius: 12px;
+    /* box-shadow: 0 10px 28px rgba(0,0,0,.32); */
+}  
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .envelope {
+        height: 300px;
+    }
+
+    .seal {
+        top: 112px;
+    }
+}
+
+
+/* ===== Modal de Video ===== */
+/* .video-modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.984);
+  display: none;
+  place-items: center;
+  z-index: 999;
+} */
+
+/* .video-modal.active{
+  display: grid;
+} */
+
+/* .video-box{
+  position: relative;
+  width: min(900px, 95vw);
+  max-height: 90vh;
+  background: #000;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+} */
+
+/* .video-box video{
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  display: block;
+  background: #000;
+} */
+
+/* .video-close{
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 14px;
+  border: none;
+  background: rgba(0,0,0,.6);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 5;
+} */
+
+
+/* ===== Overlay romántico sobre el video ===== */
+
+
+/* Capa encima del video */
+/* .video-overlay{
+  position: absolute;
+  inset: 0;
+  pointer-events: none; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 16px 26px;
+  z-index: 3;
+}
+
+/* TEXTO "TE AMO" */
+.love-text{
+  margin-top: 5px;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 6px 20px rgba(0,0,0,.55);
+  animation: pulseLove 2.8s ease-in-out infinite;
+}
+
+@keyframes pulseLove{
+  0%,100%{
+    transform: scale(1);
+    opacity: .95;
+  }
+  50%{
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* FOTO EN CORAZÓN */
+
+
+/* @keyframes floatHeart{
+  0%,100%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(-10px);
+  }
+} */
+
+/* En pantallas grandes un poquito más */
+/* @media (min-width: 768px){
+  .heart-photo{
+    width: 140px;
+    height: 140px;
+  }
+} */
+
+/* ===== Modal Video: tarjeta romántica ===== */
+.video-modal{
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(800px 500px at 50% 30%, rgba(255,77,141,.20), rgba(0,0,0,.72));
+  display: none;
+  place-items: center;
+  z-index: 999;
+  padding: 16px;
+}
+.video-modal.active{ display: grid; }
+
+/* Tarjeta principal */
+.video-card{
+  position: relative;
+  width: min(920px, 96vw);
+  border-radius: 26px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 28px 90px rgba(0,0,0,.60);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+/* borde “glow” romántico */
+.video-card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(380px 220px at 15% 20%, rgba(255,77,141,.35), transparent 60%),
+    radial-gradient(380px 220px at 85% 65%, rgba(124,77,255,.28), transparent 60%);
+  pointer-events:none;
+  opacity:.95;
+}
+.video-card::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,.12);
+  pointer-events:none;
+}
+
+/* botón cerrar */
+.video-close{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* Header */
+.video-head{
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 18px 14px 10px;
+}
+.video-badge{
+  display:inline-block;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255,77,141,.18);
+  border: 1px solid rgba(255,77,141,.25);
+  color: rgba(255,255,255,.92);
+  font-weight: 800;
+}
+.video-title{
+  margin: 10px 0 6px;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 900;
+  text-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+.video-sub{
+  margin: 0;
+  color: rgba(255,255,255,.72);
+}
+
+/* Marco del video */
+.video-frame{
+  position: relative;
+  z-index: 2;
+  margin: 10px auto 0;
+  width: min(840px, 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(0,0,0,.70);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 55px rgba(0,0,0,.45);
+}
+
+/* video responsivo */
+.video-frame video{
+  width: 100%;
+  height: auto;
+  max-height: 62vh;
+  display: block;
+  background: #000;
+}
+
+/* Footer */
+.video-footer{
+  position: relative;
+  z-index: 2;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 10px 6px;
+  flex-wrap: wrap;
+}
+.video-note{
+  margin: 0;
+  color: rgba(255,255,255,.70);
+  font-weight: 700;
+}
+
+/* Foto en corazón */
+.heart-photo{
+  width: 92px;
+  height: 92px;
+  overflow: hidden;
+  box-shadow: 0 16px 35px rgba(0,0,0,.45);
+  border: 2px solid rgba(255,255,255,.28);
+  background: rgba(255,77,141,.28);
+  clip-path: path("M46 15 C46 -4, 0 -4, 0 27 C0 55, 46 82, 46 82 C46 82, 92 55, 92 27 C92 -4, 46 -4, 46 15 Z");
+  animation: floatHeart 4.2s ease-in-out infinite;
+}
+.heart-photo img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+@keyframes floatHeart{
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-8px); }
+}
+
+/* Decoración rosas/corazones */
+.video-decor{
+  position:absolute;
+  inset:0;
+  z-index: 1;
+  pointer-events:none;
+  opacity: .95;
+}
+.rose, .spark, .tiny-heart{
+  position:absolute;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+  animation: drift 5.5s ease-in-out infinite;
+}
+@keyframes drift{
+  0%,100%{ transform: translateY(0) rotate(0deg); }
+  50%{ transform: translateY(-10px) rotate(4deg); }
+}
+.rose{ font-size: 26px; opacity:.95; }
+.r1{ top: 14px; left: 16px; }
+.r2{ top: 16px; right: 62px; }
+.r3{ bottom: 20px; left: 24px; }
+.r4{ bottom: 20px; right: 22px; }
+
+.spark{ font-size: 18px; opacity:.85; animation-duration: 4.8s; }
+.s1{ top: 72px; right: 20px; }
+.s2{ bottom: 78px; left: 18px; }
+
+.tiny-heart{ font-size: 18px; opacity:.9; animation-duration: 4.2s; }
+.h1{ top: 110px; left: 18px; }
+.h2{ top: 140px; right: 18px; }
+.h3{ bottom: 120px; right: 34px; }
+
+/* Móvil */
+@media (max-width: 520px){
+  .heart-photo{ width: 80px; height: 80px; }
+  .rose{ font-size: 22px; }
+}
